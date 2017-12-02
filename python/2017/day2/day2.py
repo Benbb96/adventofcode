@@ -3,10 +3,10 @@
 import sys
 
 
-def first(input_content):
+def first(input_content, sep):
     checksum = 0
     for line in input_content:
-        line = line.split('\t')
+        line = line.split(sep)
         minimum = int(sys.maxsize)
         maximum = 0
         for digit in line:
@@ -16,13 +16,13 @@ def first(input_content):
             if digit < minimum:
                 minimum = digit
         checksum += maximum - minimum
-    print('Le premier checksum est : ' + str(checksum))
+    return  checksum
 
 
-def second(input_content):
+def second(input_content, sep):
     checksum = 0
     for line in input_content:
-        line = line.split('\t')
+        line = line.split(sep)
         for i, digit in enumerate(line):
             count = i+1
             digit = int(digit)
@@ -37,12 +37,12 @@ def second(input_content):
                         checksum += next / digit
                         break
                 count += 1
-    print('Le second checksum est : ' + str(int(checksum)))
+    return int(checksum)
 
 
 if __name__ == '__main__':
     with open(sys.argv[1], 'r') as f:
         content = f.readlines()
     content = [x.strip() for x in content]
-    first(content)
-    second(content)
+    print ('Le premier checksum est : ' + str(first(content, '\t')))
+    print ('Le second checksum est : ' + str(second(content, '\t')))
