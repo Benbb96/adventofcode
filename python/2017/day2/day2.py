@@ -1,5 +1,3 @@
-#! /usr/bin/env python3
-# coding: utf-8
 import sys
 
 
@@ -16,7 +14,7 @@ def first(input_content, sep):
             if digit < minimum:
                 minimum = digit
         checksum += maximum - minimum
-    return  checksum
+    return checksum
 
 
 def second(input_content, sep):
@@ -44,5 +42,5 @@ if __name__ == '__main__':
     with open(sys.argv[1], 'r') as f:
         content = f.readlines()
     content = [x.strip() for x in content]
-    print ('Le premier checksum est : ' + str(first(content, '\t')))
-    print ('Le second checksum est : ' + str(second(content, '\t')))
+    print('Le premier checksum est : ' + str(first(content, '\t')))
+    print('Le second checksum est : ' + str(second(content, '\t')))
