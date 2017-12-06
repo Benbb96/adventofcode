@@ -6,7 +6,7 @@ class Me:
         self.direction = 'N'
 
     def move(self, instruction):
-        print(self.direction + ' - ' + instruction)
+        # print(self.direction + ' - ' + instruction)
         turn = instruction[0]
         step = int(instruction[1])
 
@@ -24,7 +24,7 @@ class Me:
         else:
             self.x -= step
 
-        print('x=' + str(self.x) + ' ; y=' + str(self.y))
+        # print('x=' + str(self.x) + ' ; y=' + str(self.y))
 
     def turnRight(self):
         if self.direction == 'N':
@@ -60,5 +60,4 @@ def day1(inputContent):
 if __name__ == '__main__':
     with open('input.txt', 'r') as f:
         content = f.read()
-    print(content)
     print('La distance parcouru est de ' + str(day1(content)))

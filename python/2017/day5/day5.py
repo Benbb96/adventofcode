@@ -2,11 +2,11 @@ def first(input):
     position = 0
     step = 0
     while position < len(input):
-        currentPosition = int(input[position])
+        currentOffset = int(input[position])
         oldPosition = position
-        position += currentPosition
-        currentPosition += 1
-        input[oldPosition] = str(currentPosition)
+        position += currentOffset
+        currentOffset += 1
+        input[oldPosition] = str(currentOffset)
         step += 1
     return step
 
@@ -16,14 +16,14 @@ def second(input):
     position = 0
     step = 0
     while position < len(input):
-        currentPosition = int(input[position])
+        currentOffset = int(input[position])
         oldPosition = position
-        position += currentPosition
-        if currentPosition >= 3:
-            currentPosition -= 1
+        position += currentOffset
+        if currentOffset >= 3:
+            currentOffset -= 1
         else:
-            currentPosition += 1
-        input[oldPosition] = str(currentPosition)
+            currentOffset += 1
+        input[oldPosition] = str(currentOffset)
         step += 1
     return step
 
