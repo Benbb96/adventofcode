@@ -18,26 +18,24 @@ def first(input):
             # Si on ne sort pas de la taille de la liste
             if i + length < size:
                 # On peut sélectionner directement l'intervalle souhaité
-                current_list = l[i:(i + length)]
+                sublist = l[i:(i + length)]
             else:
                 # Sinon, on parcourt la liste et on revient au début une fois
                 # la dernière valeur atteinte
                 j = i
                 count = 0
-                current_list = []
+                sublist = []
                 while count < length:
-                    current_list.append(l[j % size])
+                    sublist.append(l[j % size])
                     j += 1
                     count += 1
 
-            current_list = list(reversed(current_list))  # On inverse la liste sélectionnée
+            sublist = list(reversed(sublist))  # On inverse la liste sélectionnée
             j = i
-            count = 0
             # Puis on remplace l'ancienne liste par la nouvelle
-            while count < length:
-                l[j % size] = current_list[count]
+            for count in range(length):
+                l[j % size] = sublist[count]
                 j += 1
-                count += 1
 
         i = (i + length + skip_size) % size  # On déplace le curseur
         skip_size += 1
@@ -54,20 +52,20 @@ def second(input):
             length = int(length)
             if length > 1:
                 if i + length < size:
-                    current_list = l[i:(i + length)]
+                    sublist = l[i:(i + length)]
                 else:
                     j = i
                     count = 0
-                    current_list = []
+                    sublist = []
                     while count < length:
-                        current_list.append(l[j % size])
+                        sublist.append(l[j % size])
                         j += 1
                         count += 1
-                current_list = list(reversed(current_list))
+                sublist = list(reversed(sublist))
                 j = i
                 count = 0
                 while count < length:
-                    l[j % size] = current_list[count]
+                    l[j % size] = sublist[count]
                     j += 1
                     count += 1
             i = (i + length + skip_size) % size
@@ -77,7 +75,7 @@ def second(input):
     # Hachage terminé, on récupère les 256 valeurs et on les regroupe en 16 valeurs hexadécimal
     result = ''
     i = 0
-    for _ in list(range(16)):
+    for _ in range(16):
         group = l[i:(i + 16)]
         regrouped = xor(group)
         result += '{:02x}'.format(regrouped)
