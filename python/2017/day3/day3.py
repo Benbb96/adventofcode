@@ -50,7 +50,7 @@ def day3(n):
                 direction = 'W'
             elif direction == 'S':
                 direction = 'E'
-        
+
         new = Spiral(x, y, i, last)
         last.next = new
         last = new
