@@ -12,7 +12,7 @@ class Layer:
         self.scanner = 1
         self.down = True
 
-    def __str__(self, playerHere = False):
+    def __str__(self, playerHere):
         txt = self.depth + ' : '
         for i in range(self.rang):
             if playerHere and i == 0:
@@ -86,10 +86,7 @@ def second(level):
                     fail = True
                     break
             for layer in layers.values():
-                # if layer.depth == str(i):
-                #     print(layer.__str__(True))
-                # else:
-                #     print(layer)
+                print(layer.__str__(layer.depth == str(i)))
                 layer.update()
 
     return attempt -1

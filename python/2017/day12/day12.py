@@ -54,6 +54,6 @@ if __name__ == "__main__":
     content = [x.strip() for x in content]
 
     test = test.split('\n')
-    print("1. Le résultat est " + str(first(content)))
+    print("1. Le nombre de programme dans le groupe de 0 est " + str(first(content)))
 
-    print("2. Le résultat est " + str(second(content)))
+    print("2. Le nombre total de groupe est " + str(second(content)))
