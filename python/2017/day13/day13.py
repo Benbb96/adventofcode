@@ -1,8 +1,12 @@
+import collections
+
 test = """0: 3
 1: 2
 4: 4
 6: 4"""
 
+layers = collections.OrderedDict()
+picoseconds = 0
 
 class Layer:
 
@@ -12,10 +16,10 @@ class Layer:
         self.scanner = 1
         self.down = True
 
-    def __str__(self, playerHere):
+    def __str__(self):
         txt = self.depth + ' : '
         for i in range(self.rang):
-            if playerHere and i == 0:
+            if i == 0 and int(self.depth) == picoseconds:
                 if self.scanner == i + 1:
                     txt += ' (S) '
                 else:
@@ -47,27 +51,31 @@ class Layer:
                 self.scanner += 1
                 self.down = True
 
-layers = {}
-
 
 def first(level):
+    global picoseconds
     severity = 0
-    for i in range(level):
-        #print('Tour n°' + str(i))
+    while picoseconds < level:
+        print('Tour n°' + str(picoseconds))
         # Ya-t-il un layer avec cette profondeur
-        if str(i) in layers.keys():
-            if layers[str(i)].scanner == 1:
-                #print('Aie !')
-                severity += i * layers[str(i)].rang
+        if str(picoseconds) in layers.keys():
+            if layers[str(picoseconds)].scanner == 1:
+                print('Aie !')
+                severity += picoseconds * layers[str(picoseconds)].rang
         for layer in layers.values():
             layer.update()
+            print(layer)
+        picoseconds += 1
     return severity
 
 
 def second(level):
+    global picoseconds
     fail = True
     attempt = 0
     while fail:
+        attempt += 1
+        print('Essai n°' + str(attempt))
         fail = False
         for layer in layers.values():
             layer.reset()  # On remet à 0 les layers
@@ -75,21 +83,21 @@ def second(level):
             # On bouge les layers autant de fois qu'il y a eu d'essai
             for layer in layers.values():
                 layer.update()
-        attempt += 1
-        #print('Essai n°' + str(attempt))
-        for i in range(level):
-            #print('Tour n°' + str(i+1))
+        picoseconds = 0
+        while picoseconds < level:
+            print('Tour n°' + str(picoseconds))
             # Ya-t-il un layer avec cette profondeur
-            if str(i) in layers.keys():
-                if layers[str(i)].scanner == 1:
-                    #print('Aie !')
+            if str(picoseconds) in layers.keys():
+                if layers[str(picoseconds)].scanner == 1:
+                    print('Aie !')
                     fail = True
                     break
             for layer in layers.values():
-                print(layer.__str__(layer.depth == str(i)))
+                print(layer)
                 layer.update()
+            picoseconds += 1
 
-    return attempt -1
+    return attempt
 
 
 if __name__ == "__main__":
@@ -106,7 +114,7 @@ if __name__ == "__main__":
 
     level = int(max(layers, key=int)) + 1
 
-    print("1. Le résultat est " + str(first(level)))
+    #print("1. Le résultat est " + str(first(level)))
     for layer in layers.values():
         layer.reset()
     print("2. Le résultat est " + str(second(level)))
