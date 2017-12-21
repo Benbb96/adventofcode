@@ -1,3 +1,7 @@
+// Day 20 of the Advent of Code
+// http://adventofcode.com/2017/day/20
+
+
 ArrayList<Point> list = new ArrayList<Point>();  // My list of point
 ArrayList<Point> toDelete = new ArrayList<Point>();  // The list of point to delete
 
@@ -5,9 +9,9 @@ int listSize;
 float sphereSize = 10;
 float a = 0, b = 0;  // Variable to make it rotate along the x and y axis
 
-boolean save = true;  // Save the frames if true
-boolean collision = false;  // If point collide, they're deleted
-boolean informations = false;  // Display the information on screen if true
+boolean save = false;  // Save the frames if true
+boolean collision = true;  // If point collide, they're deleted
+boolean informations = true;  // Display the information on screen if true
 
 float scale = 0.1;
 
@@ -15,7 +19,7 @@ Point closest;  // The closest point from the origin
 int distance = 0;  // Store the distance between the closest point and the origin
 
 void setup() {
-  size(1120,640,P3D);
+  size(1120, 640, P3D);
   parseFile();
   closest = list.get(0);  // Initialize closest point as the first one of the list
 }
@@ -52,10 +56,10 @@ void draw() {
   
   showClosest();
   
-  sphereSize *= 1.02;  // Increment the size of the point to let them see from far
+  sphereSize *= 1.02;  // Grow the size of the sphere in order to let them see from far away
   
   if (save) {
-    saveFrame("final/frame-###.gif");
+    saveFrame("frames/###.gif");
   }
 }
 
@@ -76,7 +80,7 @@ void parseFile() {
     PVector velocity = new PVector(int(v[0]), int(v[1]), int(v[2]));
     PVector acceleration = new PVector(int(a[0]), int(a[1]), int(a[2]));
     Point point = new Point(i, position, velocity, acceleration);
-    //println(point.infos());
+    // println(point.infos());
     list.add(point);
   }
 }
@@ -97,9 +101,9 @@ void prepareCamera() {
   
   // Make a nice rotation
   rotateX(a % (2 * PI));
-  a -= 0.002;
+  a -= 0.01;
   rotateY(b % (2 * PI));
-  b += 0.0015;
+  b += 0.02;
   rotateZ(7*PI/4);
   
   drawAxis();
