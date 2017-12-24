@@ -1,4 +1,5 @@
 import collections
+import copy
 
 test = """0: 3
 1: 2
@@ -71,18 +72,20 @@ def first(level):
 
 def second(level):
     global picoseconds
-    fail = True
+    global layers
     attempt = 0
+    last = layers
+    fail = True
+    print(layers.values())
     while fail:
         attempt += 1
         print('Essai n°' + str(attempt))
         fail = False
+        layers = last  # On prend la dernière configuration
+        # On bouge les layers une fois de plus
         for layer in layers.values():
-            layer.reset()  # On remet à 0 les layers
-        for delay in range(attempt):
-            # On bouge les layers autant de fois qu'il y a eu d'essai
-            for layer in layers.values():
-                layer.update()
+            layer.update()
+        last = copy.deepcopy(layers) # On enregistre la nouvelle configuration de départ
         picoseconds = 0
         while picoseconds < level:
             print('Tour n°' + str(picoseconds))
@@ -93,7 +96,7 @@ def second(level):
                     fail = True
                     break
             for layer in layers.values():
-                print(layer)
+                #print(layer)
                 layer.update()
             picoseconds += 1
 

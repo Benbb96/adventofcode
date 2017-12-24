@@ -10,7 +10,7 @@ class Layer {
   }
 
   void reset() {
-    scanner = 1;
+    scanner = 0;
     down = true;
   }
 
@@ -24,7 +24,7 @@ class Layer {
         down = false;
       }
     } else {
-      // Si le scanner descend
+      // Si le scanner monte
       if (scanner > 0) {
         scanner -= 1;
       } else {
