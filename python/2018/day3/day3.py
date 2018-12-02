@@ -19,6 +19,6 @@ if __name__ == "__main__":
         content = f.readline()
     content = [x.strip() for x in content]
 
-    print("1. Le résultat est %s" % first(content))
+    print("1. Le résultat est " + str(first(content)))
 
-    print("2. Le résultat est %s" % second(content))
+    print("2. Le résultat est " + str(second(content)))
