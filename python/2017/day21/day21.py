@@ -3,11 +3,12 @@ from math import sqrt
 rules2 = {}
 rules3 = {}
 
-def getSize(pattern):
+
+def get_size(pattern):
     return int(sqrt(len(pattern)))
 
 
-def countPixelOn(pattern):
+def count_pixel_on(pattern):
     count = 0
     for pixel in pattern:
         if pixel == '#':
@@ -15,7 +16,7 @@ def countPixelOn(pattern):
     return count
 
 
-def followRule(pattern, size):
+def follow_rule(pattern, size):
     """Return which the output pattern following the corresponding rule"""
     if size % 2 == 0:
         if pattern in rules2.keys():
@@ -30,17 +31,17 @@ def first(iteration):
     for i in range(iteration):
         print('Iteration ' + str(i+1))
         print(art)
-        size = getSize(art)
+        size = get_size(art)
         if size % 2 == 0:
             # divide by 2*2 squares
             print('2')
         elif size % 3 == 0 :
             #divide by 3*3 squares
             print('3')
-            art = followRule(art, size)
+            art = follow_rule(art, size)
     print(art)
 
-    return countPixelOn(art)
+    return count_pixel_on(art)
 
 
 def second(input):
