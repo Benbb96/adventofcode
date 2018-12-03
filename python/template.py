@@ -15,8 +15,7 @@ def second(input):
 
 if __name__ == "__main__":
     with open('input.txt', 'r') as f:
-        # content = f.readlines()
-        content = f.readline()
+        content = f.readlines()
     content = [x.strip() for x in content]
 
     print("1. Le résultat est %s" % first(content))
