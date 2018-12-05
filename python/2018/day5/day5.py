@@ -23,7 +23,7 @@ def first(input):
 
 
 def second(input):
-    min = 100000
+    min = 1e5
     letter = ''
     for c in minuscule:
         # print(c)
