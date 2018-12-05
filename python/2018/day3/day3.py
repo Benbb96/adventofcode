@@ -14,31 +14,34 @@ def first(input):
     for line in input:
         id, at, pos, size = line.split()
         id = int(id[1:])
+        if id not in dead:
+            alive.add(id)
+        print(id)
         x, y = pos.split(',')
         y = y[0:-1]  # remove the :
         width, length = size.split('x')
         # print('%s:%s - %sx%s' % (x, y, width, length))
         i = int(x)
         while i < int(x) + int(width):
-            if id not in dead:
-                alive.add(id)
             j = int(y)
             while j < int(y) + int(length):
                 if fabric[i, j] != 0:
                     if int(fabric[i, j]) in alive:
-                        alive.remove(int(fabric[i, j]))
+                        print('f='+str(fabric[i, j]))
+                        print('id=' + str(id))
+                        alive.discard(int(fabric[i, j]))
                         dead.add(int(fabric[i, j]))
-                        if id in alive:
-                            alive.remove(id)
-                            dead.add(id)
+                        alive.discard(id)
+                        dead.add(id)
                     fabric[i, j] = -1
                 else:
                     fabric[i, j] = id
                 j += 1
             i += 1
-        print(alive)
-        print(dead)
-    print(alive)
+        print(sorted(alive))
+        # print(dead)
+    # print(sorted(dead))
+
     return (fabric == -1).sum()
 
 
