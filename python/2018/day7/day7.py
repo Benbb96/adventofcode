@@ -21,6 +21,14 @@ def add_letters(letter, next):
         steps[next] = {'parent': [letter]}
 
 
+def find_first_letters():
+    first_letters = []
+    for letter, value in steps.items():
+        if not 'parent' in value:
+            first_letters.append(letter)
+    return first_letters
+
+
 def first(input):
     answer = ''
     # Fill the steps
@@ -28,35 +36,21 @@ def first(input):
         letter, next = [x.strip() for x in re.findall('( [A-Z] )', line)]
         add_letters(letter, next)
 
-    print(steps)
-
-    available = []
-
-    # Find first letter
-    possible_first = []
-    for letter, value in steps.items():
-        if not 'parent' in value:
-            available.append(letter)
+    available = find_first_letters()
 
     while len(answer) < len(steps.keys()):
         # Get alphabetically first letter available
         available.sort()
-        print('available :')
-        print(available)
         next_letter = available.pop(0)
         answer += next_letter
-        print(answer)
         # If it has children, add the ones that are possible and not already available
         if 'children' in steps[next_letter]:
             for e in steps[next_letter]['children']:
                 if e not in available:
                     parent = steps[e]['parent']
-                    print(parent)
                     ok = True
                     for p in parent:
-                        print(p)
                         if p not in answer:
-                            print('not ok')
                             ok = False
                             break
                     if ok:
@@ -65,16 +59,33 @@ def first(input):
     return answer
 
 
-def second(input):
-    # Process
-    return 2
+def second(order, nb):
+    second = 0
+    workers = [''] * nb
+    answer = ''
+
+    available = find_first_letters()
+    i = 0
+    for letter in available:
+        workers[i] = letter
+        i += 1
+
+    print(workers)
+
+    while len(answer) < 26:
+        # TODO
+        second +=1
+
+    print(answer)
+    return second
 
 
 if __name__ == "__main__":
-    with open('input.txt', 'r') as f:
+    with open('test.txt', 'r') as f:
         content = f.readlines()
     content = [x.strip() for x in content]
 
-    print("1. Le résultat est %s" % first(content))
+    order = first(content)
+    print("1. Le résultat est %s" % order)
 
-    print("2. Le résultat est %s" % second(content))
+    print("2. Le résultat est %s" % second(order, 2))
