@@ -1,3 +1,6 @@
+from math import prod
+
+
 def count_trees(x_speed, y_speed, input):
     tree_encountered = 0
     x = y = 0
@@ -18,14 +21,6 @@ def first(input):
     return count_trees(3, 1, input)
 
 
-def multiply_list(l):
-    # Multiply elements one by one
-    result = 1
-    for x in l:
-        result = result * x
-    return result
-
-
 def second(input):
     slopes = [(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)]
     slopes_tree_encountered = []
@@ -35,7 +30,7 @@ def second(input):
         y_speed = slope[1]
         slopes_tree_encountered.append(count_trees(x_speed, y_speed, input))
 
-    return multiply_list(slopes_tree_encountered)
+    return prod(slopes_tree_encountered)
 
 
 if __name__ == "__main__":
