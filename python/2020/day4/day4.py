@@ -7,7 +7,6 @@ def first(input):
     fields = set()
     for line in input:
         if line == '':
-            print(fields)
             if fields == required_fields:
                 valid += 1
             fields = set()
@@ -26,7 +25,6 @@ def second(input):
     fields = set()
     for line in input:
         if line == '':
-            print(fields)
             if fields == required_fields:
                 valid += 1
             fields = set()
