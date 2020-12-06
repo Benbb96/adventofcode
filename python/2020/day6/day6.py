@@ -18,11 +18,6 @@ def first(input):
         count += 1
         for letter in line:
             answered_questions.add(letter)
-    # Add the last group
-    groups.append({
-        'nb_person': count,
-        'answered_questions': answered_questions
-    })
 
     return sum(len(group['answered_questions']) for group in groups)
 
@@ -49,15 +44,6 @@ def second(input):
         for letter in line:
             all_letters.add(letter)
         people_in_group.append(line)
-    # Do it for the last group
-    for letter in all_letters:
-        valid = True
-        for person_letters in people_in_group:
-            if letter not in person_letters:
-                valid = False
-                break
-        if valid:
-            answered_by_everyone_in_group += 1
 
     return answered_by_everyone_in_group
 
