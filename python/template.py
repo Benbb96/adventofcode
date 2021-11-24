@@ -1,23 +1,21 @@
+from python.download_input import get_input_content
 
 
-def first(input):
+def first(data):
 
-    for line in input:
+    for line in data:
         print(line)
 
     return 1
 
 
-def second(input):
-    # Process
+def second(data):
     return 2
 
 
 if __name__ == "__main__":
-    with open('input.txt', 'r') as f:
-        content = f.readlines()
-    content = [x.strip() for x in content]
+    content = get_input_content(__file__)
 
-    print("1. Le résultat est %s" % first(content))
+    print(f'Le résultat de la première partie est :\n{first(content)}')
 
-    print("2. Le résultat est %s" % second(content))
+    print(f'Le résultat de la deuxième partie est :\n{second(content)}')
