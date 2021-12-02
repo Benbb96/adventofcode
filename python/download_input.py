@@ -24,6 +24,8 @@ def get_input_content(file):
         if response.status_code == 200:
             with open(input_filename, 'w') as f:
                 f.write(response.text)
+        else:
+            raise Exception("Impossible de télécharger l'input")
 
     # Read content of the input and create a list of the striped lines
     with open(input_filename, 'r') as f:

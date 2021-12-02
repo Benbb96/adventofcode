@@ -15,6 +15,9 @@ def second(data):
 
 if __name__ == "__main__":
     content = get_input_content(__file__)
+    test_input = ''''''
+    if test_input:
+        content = test_input.split('\n')
 
     print(f'Le résultat de la première partie est :\n{first(content)}')
 
