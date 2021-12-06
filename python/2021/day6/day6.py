@@ -1,3 +1,5 @@
+from collections import Counter, defaultdict
+
 from python.download_input import get_input_content
 
 
@@ -21,43 +23,38 @@ def first(data):
     fishs = []
     for timer in data[0].split(','):
         fish = Fish(int(timer))
-        print(fish)
         fishs.append(fish)
 
-    for day in range(18):
-        print(day+1)
+    for day in range(80):
         new_fishs = []
         for fish in fishs:
             if fish.next_day():
                 new_fishs.append(Fish())
         # Add new fishs
         fishs += new_fishs
+
     return len(fishs)
 
 
 def second(data):
-    line = data[0]
+    # Use a dict to count how many fish there are at each timer
+    counter = Counter(map(int, data[0].split(',')))
+
     for day in range(256):
-        print(day+1)
-        count_new = 0
-        new_line = ''
-        for timer in map(int, line.split(',')):
-            if timer == 0:
-                new_line += '6,'
-                count_new += 1
+        next_counter = defaultdict(int)
+        for val, count in counter.items():
+            if val == 0:
+                next_counter[6] += count
+                next_counter[8] += count
             else:
-                new_line += f'{timer-1},'
-        line = new_line[:-1]
-        for _ in range(count_new):
-            line += ',8'
-    return len(line.split(','))
+                next_counter[val-1] += count
+        counter = next_counter
+
+    return sum(counter.values())
 
 
 if __name__ == "__main__":
     content = get_input_content(__file__)
-    test_input = '''3,4,3,1,2'''
-    if test_input:
-        content = test_input.split('\n')
 
     print(f'Le résultat de la première partie est :\n{first(content)}')
 
