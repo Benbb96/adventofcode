@@ -12,29 +12,74 @@ def first(data):
     return count
 
 
+def difference_between_two_digit(a, b):
+    return list(set(a).difference(set(b)))
+
+
 def second(data):
-    possible_mapping_by_letter = {letter: [] for letter in 'abcdef'}
-    print(possible_mapping_by_letter)
-    mapping_by_digit = {digit: None for digit in range(10)}
-    print(mapping_by_digit)
     count = 0
     for line in data:
         print(line)
+        possible_mapping_by_letter = {letter: [] for letter in 'abcdefg'}
+        mapping_by_digit = {digit: None for digit in range(10)}
         unique_patterns, digit_outputs = line.split(' | ')
-        for digit_output in digit_outputs.split():
-            if len(digit_output) == 2 and not mapping_by_digit[1]:
+        five_segments = []
+        six_segments = []
+        for unique_pattern in unique_patterns.split():
+            # Sort letters
+            unique_pattern = ''.join(sorted(unique_pattern))
+            if len(unique_pattern) == 2 and not mapping_by_digit[1]:
                 # Digit = 1
-                mapping_by_digit[1] = set(list(digit_output))
-            elif len(digit_output) == 3 and not mapping_by_digit[7]:
+                mapping_by_digit[1] = unique_pattern
+            elif len(unique_pattern) == 3 and not mapping_by_digit[7]:
                 # Digit = 7
-                mapping_by_digit[7] = set(list(digit_output))
-            elif len(digit_output) == 4 and not mapping_by_digit[4]:
+                mapping_by_digit[7] = unique_pattern
+            elif len(unique_pattern) == 4 and not mapping_by_digit[4]:
                 # Digit = 4
-                mapping_by_digit[4] = set(list(digit_output))
-            elif len(digit_output) == 7 and not mapping_by_digit[8]:
+                mapping_by_digit[4] = unique_pattern
+            elif len(unique_pattern) == 5:
+                # Digits 2, 3, 5
+                five_segments.append(unique_pattern)
+            elif len(unique_pattern) == 6:
+                # Digits 0, 6, 9
+                six_segments.append(unique_pattern)
+            elif len(unique_pattern) == 7 and not mapping_by_digit[8]:
                 # Digit = 8
-                mapping_by_digit[8] = set(list(digit_output))
-    print(mapping_by_digit)
+                mapping_by_digit[8] = unique_pattern
+
+        # Add possible for c and f
+        for letter in mapping_by_digit[1]:
+            possible_mapping_by_letter['c'].append(letter)
+            possible_mapping_by_letter['f'].append(letter)
+        # Find a
+        a = difference_between_two_digit(mapping_by_digit[7], mapping_by_digit[1])[0]
+        possible_mapping_by_letter['a'] = [a]
+        # Add possible for b and d
+        b_and_d = difference_between_two_digit(mapping_by_digit[4], mapping_by_digit[1])
+        for letter in b_and_d:
+            possible_mapping_by_letter['b'].append(letter)
+            possible_mapping_by_letter['d'].append(letter)
+        # Find 3
+        for five_segment in five_segments:
+            if mapping_by_digit[1][0] in five_segment and mapping_by_digit[1][1]:
+                mapping_by_digit[3] = five_segment
+                break
+        five_segments.remove(mapping_by_digit[3])
+        # Find g
+        d_and_g = difference_between_two_digit(mapping_by_digit[3], mapping_by_digit[7])
+        g = difference_between_two_digit(d_and_g, mapping_by_digit[4])[0]
+        possible_mapping_by_letter['g'] = [g]
+        d = difference_between_two_digit(d_and_g, g)[0]
+        possible_mapping_by_letter['d'] = [d]
+        # Find 0
+        for six_segment in six_segments:
+            if possible_mapping_by_letter['d'][0] not in six_segment:
+                mapping_by_digit[0] = six_segment
+                break
+        print(mapping_by_digit)
+        print(possible_mapping_by_letter)
+        six_segments.remove(mapping_by_digit[0])
+        # TODO...
 
     return count
 
