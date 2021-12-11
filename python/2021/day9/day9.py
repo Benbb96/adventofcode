@@ -8,8 +8,8 @@ ADJACENCY = {(0, 1), (-1, 0), (1, 0), (0, -1)}  # Adjacency matrix
 
 # https://newbedev.com/pythonic-and-efficient-way-of-finding-adjacent-cells-in-grid
 def get_adjacent_cells(grid, x, y):
-    max_x = len(grid[0])
-    max_y = len(grid)
+    max_x = len(grid)
+    max_y = len(grid[0])
     for dx, dy in ADJACENCY:
         if 0 <= (x + dx) < max_x and 0 <= y + dy < max_y:  # Boundaries check
             # yielding is usually faster than constructing a list and returning it if you're just using it once
