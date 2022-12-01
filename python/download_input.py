@@ -8,7 +8,7 @@ from os.path import exists, abspath, dirname, basename
 load_dotenv()
 
 
-def get_input_content(file):
+def get_input_content(file: str) -> list[str]:
     input_filename = 'input.txt'
     # Get input file if it doesn't already exist
     if not exists(input_filename):

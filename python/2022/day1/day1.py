@@ -1,30 +1,17 @@
 from python.download_input import get_input_content
 
 
-def first(data):
-    m = 0
-    t = 0
+def get_calories(data: list[str]) -> list:
+    elves_calories = []
+    elf = 0
     for line in data:
         if line == '':
-            m = max(t, m)
-            t = 0
+            elves_calories.append(elf)
+            elf = 0
         else:
-            t += int(line)
-
-    return m
-
-
-def second(data):
-    m = []
-    t = 0
-    for line in data:
-        if line == '':
-            m.append(t)
-            t = 0
-        else:
-            t += int(line)
-
-    return sum(sorted(m, reverse=True)[:3])
+            elf += int(line)
+    # Sort with maximum first
+    return sorted(elves_calories, reverse=True)
 
 
 if __name__ == "__main__":
@@ -33,6 +20,8 @@ if __name__ == "__main__":
     if test_input:
         content = test_input.split('\n')
 
-    print(f'Le résultat de la première partie est :\n{first(content)}')
+    calories = get_calories(content)
 
-    print(f'Le résultat de la deuxième partie est :\n{second(content)}')
+    print(f'Le résultat de la première partie est :\n{calories[0]}')
+
+    print(f'Le résultat de la deuxième partie est :\n{sum(calories[:3])}')
