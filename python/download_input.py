@@ -18,7 +18,8 @@ def get_input_content(file: str) -> list[str]:
         year = basename(dirname(dirname(abspath(file))))
         response = requests.get(
             f'https://adventofcode.com/{year}/day/{day}/input',
-            cookies={'session': getenv('SESSION_ID')}
+            cookies={'session': getenv('SESSION_ID')},
+            headers={'User-Agent': 'github.com/benbb96/adventofcode by benbb96@gmail.com'}
         )
         print(f'Download {input_filename}: {response.status_code} [{response.reason}]')
         if response.status_code == 200:
