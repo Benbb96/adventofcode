@@ -16,9 +16,6 @@ def get_calories(data: list[str]) -> list:
 
 if __name__ == "__main__":
     content = get_input_content(__file__)
-    test_input = ''''''
-    if test_input:
-        content = test_input.split('\n')
 
     calories = get_calories(content)
 
