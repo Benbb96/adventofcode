@@ -7,20 +7,13 @@ def first(data):
     while r < len(data):
         c = 0
         while c < len(data[r]):
-            if r == 0 or c == 0 or r == len(data) - 1 or c == len(data[r]) - 1:
+            if r == 0 or c == 0 or r == len(data) - 1 or c == len(data[r]) - 1 or any([
+                    all(data[r][i] < data[r][c] for i in range(c)),  # left
+                    all(data[i][c] < data[r][c] for i in range(r)),  # top
+                    all(data[r][i] < data[r][c] for i in range(len(data[r]) - 1, c, -1)),  # rigth
+                    all(data[i][c] < data[r][c] for i in range(len(data) - 1, r, -1))  # down
+            ]):
                 visible_trees += 1
-            else:
-                visible = False
-                if all(data[r][i] < data[r][c] for i in range(c)):
-                    visible = True
-                elif all(data[i][c] < data[r][c] for i in range(r)):
-                    visible = True
-                elif all(data[r][i] < data[r][c] for i in range(len(data[r]) - 1, c, -1)):
-                    visible = True
-                elif all(data[i][c] < data[r][c] for i in range(len(data) - 1, r, -1)):
-                    visible = True
-                if visible:
-                    visible_trees += 1
             c += 1
         r += 1
 
@@ -75,13 +68,6 @@ def second(data):
 
 if __name__ == "__main__":
     content = get_input_content(__file__)
-    test_input = '''30373
-25512
-65332
-33549
-35390'''
-    # if test_input:
-    #     content = test_input.split('\n')
 
     grid = [list(line) for line in content]
 
