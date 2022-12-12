@@ -17,7 +17,11 @@ def main(args):
         print(f'Create new day {day} for year {year}')
         makedirs(f'{year}/day{day}')
 
-    copyfile('template.py', f'{year}/day{day}/day{day}.py')
+    filename = f'{year}/day{day}/day{day}.py'
+    if exists(filename):
+        print(f'Day {day} for year {year} already exists')
+    else:
+        copyfile('template.py', filename)
 
 
 if __name__ == '__main__':
