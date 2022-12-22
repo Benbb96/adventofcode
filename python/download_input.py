@@ -34,6 +34,6 @@ def get_input_content(file: str, split_by_lines: bool = True) -> Union[list[str]
         if split_by_lines:
             content = [x.strip() for x in f.readlines()]
         else:
-            content = f.read().strip()
+            content = f.read()
 
     return content
