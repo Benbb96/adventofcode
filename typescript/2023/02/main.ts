@@ -17,7 +17,7 @@ const getMaxRedGreenBlue = (sets: string[]) => {
     for (const set of sets) {
         const takes = set.split(', ')
         for (const take of takes) {
-            const [value, color] = take.split(' ') as [string, 'red' | 'green' | 'blue']
+            const [value, color] = take.split(' ') as [string, keyof typeof max]
             const val = parseInt(value)
             if (val > max[color]) {
                 max[color] = val
