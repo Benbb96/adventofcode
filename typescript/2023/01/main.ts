@@ -29,16 +29,29 @@ const getLastDigit = (line: string) => {
 }
 
 const getSumofFirstAndLastDigits = (line: string) => {
-    console.log(line)
-
-    const firstDigit = getFirstDigit(line)
-    const lastDigit = getLastDigit(line)
-
-    console.log('first ', firstDigit, 'and last ', lastDigit)
-
-    return parseInt(firstDigit + lastDigit)
+    return Number(getFirstDigit(line) + getLastDigit(line))
 }
 
-const total = input.trimEnd().split('\n').reduce((prev, curr) => prev + getSumofFirstAndLastDigits(curr), 0)
+const total = testInput.trimEnd().split('\n').reduce((prev, curr) => prev + getSumofFirstAndLastDigits(curr), 0)
+console.log(`Result for part 1 is : ${total}`)
 
-console.log(`Result is : ${total}`)
+const testInput2 = `two1nine
+eightwothree
+abcone2threexyz
+xtwone3four
+4nineeightseven2
+zoneight234
+7pqrstsixteen`
+
+const easyInput = input.replaceAll('one', 'o1e')
+    .replaceAll('two', 't2o')
+    .replaceAll('three', 't3e')
+    .replaceAll('four', 'f4r')
+    .replaceAll('five', 'f5e')
+    .replaceAll('six', 's6x')
+    .replaceAll('seven', 's7n')
+    .replaceAll('eight', 'e8t')
+    .replaceAll('nine', 'n9e')
+
+const total2 = easyInput.trimEnd().split('\n').reduce((prev, curr) => prev + getSumofFirstAndLastDigits(curr), 0)
+console.log(`Result for part 2 is : ${total2}`)
