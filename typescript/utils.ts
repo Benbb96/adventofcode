@@ -1,0 +1,1 @@
+export const getAllNumbers = (str: string) => [...str.matchAll(/\d+/g)].map(n => Number(n))
