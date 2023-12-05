@@ -37,12 +37,15 @@ const findMinLocationFromSeeds = (seeds: number[], mapper: Array<Array<number>[]
 
 console.log(`Result for part 1 is : ${findMinLocationFromSeeds(seeds, mapper)}`)
 
-const seedsPart2: number[] = []
+let minLocation = Infinity
 for (let i = 0; i < seeds.length / 2; i += 2) {
     for (let j = 0; j < seeds[i + 1]; j++) {
-        seedsPart2.push(seeds[i] + j)
+        const min = findMinLocationFromSeeds([seeds[i] + j], mapper)
+        if (min < minLocation) {
+            console.log('better min :', min)
+            minLocation = min
+        }
     }
 }
-// TODO optimize...
-console.log(seedsPart2)
-//console.log(`Result for part 2 is : ${findMinLocationFromSeeds(seedsPart2, mapper)}`)
+
+console.log(`Result for part 2 is : ${minLocation}`)
