@@ -1,5 +1,3 @@
-const testInput = ``
-
 const handleLine = (line: string, part2 = false) => {
     console.log(line)
     return 0
