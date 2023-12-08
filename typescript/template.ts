@@ -3,7 +3,7 @@ const handleLine = (line: string, part2 = false) => {
     return 0
 }
 
-const file = Bun.file('input');
+const file = Bun.file('example');
 const input = await file.text();
 const lines = input.trimEnd().split('\n')
 
