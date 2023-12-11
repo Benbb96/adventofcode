@@ -15,7 +15,7 @@ def get_input_content(file: str, split_by_lines: bool = True) -> Union[list[str]
     if not exists(input_filename):
         # Get day and year from path of the file
         day = basename(dirname(abspath(file)))
-        day = re.findall(r'\d+', day)[0]
+        day = int(re.findall(r'\d+', day)[0])
         year = basename(dirname(dirname(abspath(file))))
         response = requests.get(
             f'https://adventofcode.com/{year}/day/{day}/input',
@@ -27,7 +27,8 @@ def get_input_content(file: str, split_by_lines: bool = True) -> Union[list[str]
             with open(input_filename, 'w') as f:
                 f.write(response.text)
         else:
-            raise Exception("Impossible de télécharger l'input")
+            print(response.text)
+            raise Exception(f"Impossible de télécharger l'input. Erreur {response.status_code}")
 
     # Read content of the input and create a list of the striped lines
     with open(input_filename, 'r') as f:
