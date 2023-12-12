@@ -103,3 +103,7 @@ ENV/
 # Pycharm
 .idea
 .vscode
+
+# Inputs
+input*
+example
