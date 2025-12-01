@@ -13,11 +13,12 @@ def main(args):
         print(f'Create new year {year}')
         makedirs(str(year))
 
-    if not exists(f'{year}/day{day}'):
+    folder_path = f'{year}/{str(day).zfill(2)}'
+    if not exists(folder_path):
         print(f'Create new day {day} for year {year}')
-        makedirs(f'{year}/day{day}')
+        makedirs(folder_path)
 
-    filename = f'{year}/day{day}/day{day}.py'
+    filename = f'{folder_path}/main.py'
     if exists(filename):
         print(f'Day {day} for year {year} already exists')
     else:
