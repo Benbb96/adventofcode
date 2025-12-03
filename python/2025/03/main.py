@@ -1,4 +1,5 @@
 from download_input import get_input_content
+from collections import deque
 
 
 def first(data):
@@ -26,24 +27,32 @@ def second(data):
      for line in data:
         print(line)
         numbers = [int(c) for c in line]
-        sorted_numbers = sorted(numbers, reverse=True)
-        max_12 = sorted_numbers[:12]
-        print(max_12)
-        indexes = set()
-        corresponding_indexes = []
-        for c in max_12:
-            index = numbers.index(c)
-            while index in indexes:
-                index = numbers.index(c, index + 1)
-            indexes.add(index)
-            corresponding_indexes.append(index)
-        print(corresponding_indexes)
-        sorted_corresponding_indexes = sorted(corresponding_indexes)
-        print(sorted_corresponding_indexes)
-        found = int(''.join([str(numbers[i]) for i in sorted_corresponding_indexes]))
+        copy_numbers = numbers.copy()
+
+        # init
+        found_indexes = []
+        last_max_char = None
+        last_index = None
+        while len(found_indexes) < 12:
+            print(f'{copy_numbers=}')
+            max_char = max(copy_numbers)
+            print(f'{max_char=}')
+            if last_max_char == max_char:
+                start = last_index + 1
+            else:
+                start = 0
+            print(f'{start=}')
+            last_max_char = max_char
+            last_index = numbers.index(max_char, start)
+            found_indexes.append(last_index)
+            del copy_numbers[copy_numbers.index(max_char)]
+
+        # sort
+        found_indexes.sort()
+        found = ''.join(str(numbers[i]) for i in found_indexes)
         print(found)
-        sum += found
-        print('----')
+        print()
+        sum += int(found)
 
      return sum
 
