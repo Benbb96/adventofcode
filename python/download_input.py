@@ -17,9 +17,12 @@ def get_input_content(file: str, split_by_lines: bool = True) -> Union[list[str]
         day = basename(dirname(abspath(file)))
         day = int(re.findall(r'\d+', day)[0])
         year = basename(dirname(dirname(abspath(file))))
+        session_id = getenv('SESSION_ID')
+        if not session_id:
+            raise Exception("La variable d'environnement SESSION_ID n'est pas définie.")
         response = requests.get(
             f'https://adventofcode.com/{year}/day/{day}/input',
-            cookies={'session': getenv('SESSION_ID')},
+            cookies={'session': session_id},
             headers={'User-Agent': 'github.com/benbb96/adventofcode by benbb96@gmail.com'}
         )
         print(f'Download {input_filename}: {response.status_code} [{response.reason}]')
@@ -33,8 +36,6 @@ def get_input_content(file: str, split_by_lines: bool = True) -> Union[list[str]
     # Read content of the input and create a list of the striped lines
     with open(input_filename, 'r') as f:
         if split_by_lines:
-            content = [x.strip() for x in f.readlines()]
+            return [x.strip() for x in f.readlines()]
         else:
-            content = f.read().strip()
-
-    return content
+            return f.read().strip()
