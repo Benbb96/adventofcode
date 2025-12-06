@@ -36,6 +36,6 @@ def get_input_content(file: str, split_by_lines: bool = True) -> Union[list[str]
     # Read content of the input and create a list of the striped lines
     with open(input_filename, 'r') as f:
         if split_by_lines:
-            return [x.strip() for x in f.readlines()]
+            return [x for x in f.readlines()]
         else:
             return f.read().strip()
